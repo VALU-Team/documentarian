@@ -44,7 +44,9 @@ class Documentarian
         // copy stub files
         copy(__DIR__ . '/../resources/stubs/index.md', $folder . '/index.md');
         copy(__DIR__ . '/../resources/stubs/gitignore.stub', $folder . '/.gitignore');
-        copy(__DIR__ . '/../resources/stubs/includes/_errors.md', $folder . '/includes/_errors.md');
+        //copy(__DIR__ . '/../resources/stubs/includes/_errors.md', $folder . '/includes/_errors.md');
+        copy(__DIR__ . '/../resources/stubs/includes/_request.md', $folder . '/includes/_request.md');
+        copy(__DIR__ . '/../resources/stubs/includes/_response.md', $folder . '/includes/_response.md');
         copy(__DIR__ . '/../resources/stubs/package.json', $folder . '/package.json');
         copy(__DIR__ . '/../resources/stubs/gulpfile.js', $folder . '/gulpfile.js');
         copy(__DIR__ . '/../resources/stubs/config.php', $folder . '/config.php');

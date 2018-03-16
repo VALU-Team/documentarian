@@ -21,9 +21,12 @@ Status Code | Description
 
 Status Code | Description
 ---------- | -------
+307 - TemporaryRedirect | 一時的にページが表示できないとき。取引/出金の時間外はこちら。
+400 - BadRequestError | リクエストエラー
 401 - Unauthorized | 認証トークンエラー
 403 - Forbidden | アクセス不許可エラー
 404 - Not Found | リソースが見つからない時のエラー
+405 - MethodNotAllowedError | エンドポイントに対して定義されていないMethodにてアクセスがあったとき。
 409 - Conflict | リソースコンフリクトエラー。`rules` に対象フィールドとそのエラー内容が返る。
 422 - Unprocessable Entity | バリデーションエラー。`rules` に対象フィールドとそのエラー内容が返る。
 500 - Internal Server Error | システムエラー

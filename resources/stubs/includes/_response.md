@@ -19,18 +19,19 @@ Status Code | Description
 
 ### 異常系
 
-Status Code | Description
----------- | -------
-307 - TemporaryRedirect | 一時的にページが表示できないとき。取引/出金の時間外はこちら。
-400 - BadRequestError | リクエストエラー
-401 - Unauthorized | 認証トークンエラー
-403 - Forbidden | アクセス不許可エラー
-404 - Not Found | リソースが見つからない時のエラー
-405 - MethodNotAllowedError | エンドポイントに対して定義されていないMethodにてアクセスがあったとき。
-409 - Conflict | リソースコンフリクトエラー。`rules` に対象フィールドとそのエラー内容が返る。
-422 - Unprocessable Entity | バリデーションエラー。`rules` に対象フィールドとそのエラー内容が返る。
-500 - Internal Server Error | システムエラー
-503 - Service Unavailable Error | サービス利用不可エラー。`message` にその理由が返る。
+Status Code | Title | Description
+---------- | ------- | --------
+307 - TemporaryRedirect | 時間外エラー | 取引/出金の時間外等、一時的にアクセスを拒否したい時。
+400 - BadRequestError | 汎用エラー | リクエストパラメータに異常がある時。
+401 - Unauthorized | 認証エラー | トークン消失/有効期限切れの時。
+403 - Forbidden | 汎用エラー | 許可がないコンテンツににアクセスした時。
+404 - Not Found | 汎用エラー | アクセスしたリソースが見つからない時。
+405 - MethodNotAllowedError | 汎用エラー | エンドポイントに対して定義されていないMethodにてアクセスがあった時。
+409 - Conflict | バリデーションエラー | すでに存在しているに対してPOSTされた時。`rules` に対象フィールドとそのエラー内容が返る。
+422 - UnprocessableEntity | バリデーションエラー | POSTパラメータに異常がある時。`rules` に対象フィールドとそのエラー内容が返る。
+500 - InternalServerError | 汎用エラー | サーバーロジック等に問題がある時。
+503 - ServiceUnavailableError | サービス利用不可エラー | メンテナンス等。`message` にその理由が返る。
+505 - ClientVersionNotSupportedError | 強制アップデートエラー | クライアントバージョンがサーバーの許容外の時。
 
 ### 異常系(Response Body)
 
@@ -41,8 +42,22 @@ message | string | エラー内容
 rules | array:object | バリデーションエラー内容
 
 ```bash
-#422 Error Handling
-##リクエストパラメータがバリデーションエラーの場合
+#307 時間外エラー
+{
+  "type": "TemporaryRedirect",
+  "message": "You can't access to this feature at this time.\r\nOrders available 24 hours except for Sunday (Deposit is available anytime)\r\n* We will reopen these features once hard fork is over.",
+  "rules": {}
+}
+
+#401 認証エラー
+{
+  "type": "UnauthorizedError",
+  "message": "Authentification Failed",
+  "rules":{}
+}
+
+#422 バリデーションエラー
+##リクエストパラメータが不正だった場合
 {
   "type": "InvalidRequestError",
   "message": "",
@@ -60,7 +75,7 @@ rules | array:object | バリデーションエラー内容
   }
 }
 
-#503 Error Handling
+#503 サービス利用不可エラー
 ##メンテナンス中
 {
   "type": "ServiceUnavailableError",
@@ -68,10 +83,11 @@ rules | array:object | バリデーションエラー内容
   "rules": {}
 }
 
-##営業時間外(Wallet, Order機能限定)
+#505 強制アップデートエラー
 {
-  "type": "ServiceUnavailableError",
-  "message": "売買取引は日曜日を除く9:00~21:00。出金の受付は、土日祝日を除く平日の 9:00 ～ 21:00 となっております。",
+  "type": "ClientVersionNotSupportedError",
+  "message": "You need to update latest version app at https://itunes.apple.com/app/apple-store/id1117773612",
   "rules": {}
 }
+
 ```

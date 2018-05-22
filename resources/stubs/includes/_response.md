@@ -21,6 +21,7 @@ Status Code | Description
 
 Status Code | Title | Description
 ---------- | ------- | --------
+303 - SeeOther | 初回設定エラー | 初回設定が未設定だった場合。
 307 - TemporaryRedirect | 時間外エラー | 取引/出金の時間外等、一時的にアクセスを拒否したい時。
 400 - BadRequestError | 汎用エラー | リクエストパラメータに異常がある時。
 401 - Unauthorized | 認証エラー | トークン消失/有効期限切れの時。
@@ -42,6 +43,13 @@ message | string | エラー内容
 rules | array:object | バリデーションエラー内容
 
 ```bash
+#303 初回設定エラー
+{
+  "type": "SeeOther",
+  "message": "tutorial:0",
+  "rules": {}
+}
+
 #307 時間外エラー
 {
   "type": "TemporaryRedirect",

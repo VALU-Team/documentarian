@@ -32,7 +32,7 @@ Status Code | Title | Description
 422 - UnprocessableEntity | バリデーションエラー | POSTパラメータに異常がある時。`rules` に対象フィールドとそのエラー内容が返る。
 500 - InternalServerError | 汎用エラー | サーバーロジック等に問題がある時。
 503 - ServiceUnavailableError | サービス利用不可エラー | メンテナンス等。`message` にその理由が返る。
-505 - ClientVersionNotSupportedError | 強制アップデートエラー | クライアントバージョンがサーバーの許容外の時。
+505 - ClientVersionNotSupportedError | 強制アップデートエラー | クライアントバージョンがサーバーの許容外の時。 `message` にアップデートページへのURLが返る
 
 ### 異常系(Response Body)
 
@@ -94,7 +94,7 @@ rules | array:object | バリデーションエラー内容
 #505 強制アップデートエラー
 {
   "type": "ClientVersionNotSupportedError",
-  "message": "You need to update latest version app at https://itunes.apple.com/app/apple-store/id1117773612",
+  "message": "https://itunes.apple.com/app/apple-store/id1401257503",
   "rules": {}
 }
 
